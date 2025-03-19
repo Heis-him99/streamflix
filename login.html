@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamflix - Sign In</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #141e30;
+            color: #fff;
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        .container {
+            background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: #38ef7d;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .main-content {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .split-container {
+            display: flex;
+            width: 900px;
+            max-width: 95%;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .image-side {
+            flex: 1;
+            background-image: url('/api/placeholder/450/550');
+            background-size: cover;
+            position: relative;
+        }
+        
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(56, 239, 125, 0.6) 0%, rgba(17, 153, 142, 0.6) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .image-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .image-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .form-side {
+            flex: 1;
+            background-color: #1c2331;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        
+        .form-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .form-header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .form-header p {
+            color: #8b97a8;
+            font-size: 0.9rem;
+        }
+        
+        .form-control {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-control label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #8b97a8;
+        }
+        
+        .form-control input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            background-color: #242f44;
+            color: #fff;
+            transition: all 0.3s;
+        }
+        
+        .form-control input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(56, 239, 125, 0.5);
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+        
+        .forgot-password a {
+            color: #38ef7d;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #38ef7d 0%, #11998e 100%);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(56, 239, 125, 0.4);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #8b97a8;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #303f58;
+        }
+        
+        .divider span {
+            padding: 0 10px;
+            font-size: 0.85rem;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #242f44;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .account-text {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #8b97a8;
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        
+        .account-text a {
+            color: #38ef7d;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+        
+        .account-text a:hover {
+            text-decoration: underline;
+        }
+        
+        .form-wrapper {
+            display: none;
+        }
+        
+        .form-wrapper.active {
+            display: block;
+        }
+        
+        .toggle-view-btn {
+            background: none;
+            border: 2px solid #38ef7d;
+            color: #38ef7d;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            display: block;
+            width: 100%;
+        }
+        
+        .toggle-view-btn:hover {
+            background-color: rgba(56, 239, 125, 0.1);
+        }
+        
+        .mobile-switch {
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
+                max-height: 90vh;
+            }
+            
+            .image-side {
+                min-height: 200px;
+            }
+            
+            .image-title {
+                font-size: 2rem;
+            }
+            
+            .image-text {
+                font-size: 1rem;
+            }
+            
+            .form-side {
+                padding: 30px 20px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .mobile-switch {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 15px 5%;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                font-size: 1.4rem;
+                margin-right: 5px;
+            }
+            
+            .image-side {
+                min-height: 150px;
+            }
+            
+            .image-title {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .image-text {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+            
+            .form-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .form-header p {
+                font-size: 0.8rem;
+            }
+            
+            .form-control input {
+                padding: 12px;
+            }
+            
+            .btn-primary {
+                padding: 12px;
+            }
+            
+            .form-side {
+                padding: 25px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">
+                <span class="logo-icon">▶</span>STREAMFLIX
+            </a>
+        </header>
+        
+        <div class="main-content">
+            <div class="split-container">
+                <div class="image-side">
+                    <div class="image-overlay">
+                        <h2 class="image-title">Unlimited Entertainment</h2>
+                        <p class="image-text">Stream your favorite movies and shows anytime, anywhere. Join millions of subscribers enjoying premium content.</p>
+                    </div>
+                </div>
+                
+                <div class="form-side">
+                    <div id="signin-form" class="form-wrapper active">
+                        <div class="form-header">
+                            <h1>Welcome Back</h1>
+                            <p>Sign in to continue your streaming experience</p>
+                        </div>
+                        
+                        <form>
+                            <div class="form-control">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" placeholder="Enter your email" required>
+                            </div>
+                            
+                            <div class="form-control">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" placeholder="Enter your password" required>
+                            </div>
+                            
+                            <div class="forgot-password">
+                                <a href="#">Forgot password?</a>
+                            </div>
+                            
+                          <button type="submit" class="btn-primary"> <a href="index.html"> Sign In</a></button>
+                        </form>
+                        
+                        <div class="divider">
+                            <span>OR</span>
+                        </div>
+                        
+                        <div class="social-login">
+                            <div class="social-btn">G</div>
+                            <div class="social-btn">f</div>
+                            <div class="social-btn">in</div>
+                        </div>
+                        
+                        <p class="account-text">
+                            Don't have an account?<a href="#" onclick="toggleForm()">Sign Up</a>
+                        </p>
+                        
+                        <button class="toggle-view-btn" onclick="toggleForm()">Create New Account</button>
+                    </div>
+                    
+                    <div id="signup-form" class="form-wrapper">
+                        <div class="form-header">
+                            <h1>Create Account</h1>
+                            <p>Join Streamflix and start streaming today</p>
+                        </div>
+                        
+                        <form>
+                            <div class="form-control">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" placeholder="Enter your name" required>
+                            </div>
+                            
+                            <div class="form-control">
+                                <label for="signup-email">Email Address</label>
+                                <input type="email" id="signup-email" placeholder="Enter your email" required>
+                            </div>
+                            
+                            <div class="form-control">
+                                <label for="signup-password">Password</label>
+                                <input type="password" id="signup-password" placeholder="Create a password" required>
+                            </div>
+                            
+                           <button type="submit" class="btn-primary"><a href="index.html">Create Account</a></button>
+                        </form>
+                        
+                        <p class="account-text">
+                            Already have an account?<a href="#" onclick="toggleForm()">Sign In</a>
+                        </p>
+                        
+                        <button class="toggle-view-btn" onclick="toggleForm()">Back to Sign In</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleForm() {
+            document.getElementById('signin-form').classList.toggle('active');
+            document.getElementById('signup-form').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
